@@ -11,7 +11,7 @@ mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = screenGui
-mainFrame.Visible = false
+mainFrame.Visible = true
 
 local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 10)
@@ -178,6 +178,7 @@ deleteButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
 end)
 
+-- Modified close button logic to show mobile GUI with touch and click support
 closeButton.MouseButton1Click:Connect(function()
     mainFrame:TweenPosition(UDim2.new(0.5, -200, 0.5, 500), "Out", "Quad", 0.5, true, function()
         mainFrame.Visible = false
@@ -198,6 +199,7 @@ reopenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 reopenButton.Visible = false
 reopenButton.Parent = screenGui
 
+-- Show GUI when reopen button is pressed (for both mobile and desktop)
 reopenButton.MouseButton1Click:Connect(function()
     mainFrame.Position = UDim2.new(0.5, -200, 0.5, 500)
     mainFrame.Visible = true
