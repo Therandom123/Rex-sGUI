@@ -1,7 +1,7 @@
 Rex's Executor GUI
 Rex's Executor is a custom-built Lua script executor GUI designed for Roblox. This GUI provides users with a simple and sleek interface to write, execute, and manage Lua scripts directly from the game. The interface includes essential features like script execution, clearing input, and managing errors in a user-friendly way.
 
-<!-- You can replace the path with the actual image URL -->
+![image](https://github.com/user-attachments/assets/2d12c247-f3a6-41f7-bd96-03b6fe323017)
 
 Features
 TextBox Input: Users can input Lua scripts to be executed.
@@ -10,7 +10,6 @@ Clear Button: Clears the TextBox for new input.
 Close Button: Closes the GUI and removes it from the screen.
 Error Log: Displays any errors encountered during script execution in a dedicated area.
 Credits Button: Toggle the credits information.
-Screenshot
 
 How It Works
 The user writes a Lua script in the TextBox.
