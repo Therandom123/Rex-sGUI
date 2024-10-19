@@ -3,6 +3,7 @@ screenGui.Name = "LuaExecutor"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
+-- Create mainFrame
 local mainFrame = Instance.new("Frame")
 mainFrame.Size = UDim2.new(0, 400, 0, 350)
 mainFrame.Position = UDim2.new(0.5, -200, 0.5, -175)
@@ -12,6 +13,13 @@ mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = screenGui
 mainFrame.Visible = true
+
+-- Log to check mainFrame initialization
+if mainFrame then
+    print("mainFrame initialized successfully.")
+else
+    warn("mainFrame failed to initialize.")
+end
 
 local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 10)
@@ -178,18 +186,7 @@ deleteButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
 end)
 
--- Modified close button logic to show mobile GUI with touch and click support
-closeButton.MouseButton1Click:Connect(function()
-    mainFrame:TweenPosition(UDim2.new(0.5, -200, 0.5, 500), "Out", "Quad", 0.5, true, function()
-        mainFrame.Visible = false
-        reopenButton.Visible = true
-    end)
-end)
-
-creditsButton.MouseButton1Click:Connect(function()
-    creditsLabel.Visible = not creditsLabel.Visible
-end)
-
+-- Create reopenButton with extra check
 local reopenButton = Instance.new("TextButton")
 reopenButton.Size = UDim2.new(0, 100, 0, 50)
 reopenButton.Position = UDim2.new(0.5, -50, 0.9, -25)
@@ -199,12 +196,41 @@ reopenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 reopenButton.Visible = false
 reopenButton.Parent = screenGui
 
--- Show GUI when reopen button is pressed (for both mobile and desktop)
+-- Ensure reopenButton is created correctly
+if not reopenButton then
+    error("Failed to create reopenButton!")
+else
+    print("reopenButton successfully created.")
+end
+
+-- Close button logic with a check for nil values
+closeButton.MouseButton1Click:Connect(function()
+    if mainFrame and reopenButton then  -- Ensure both objects are not nil
+        print("Closing mainFrame...")
+        mainFrame:TweenPosition(UDim2.new(0.5, -200, 0.5, 500), "Out", "Quad", 0.5, true, function()
+            mainFrame.Visible = false
+            reopenButton.Visible = true
+        end)
+    else
+        warn("Error: 'mainFrame' or 'reopenButton' is nil. Cannot proceed with the Close action.")
+    end
+end)
+
+creditsButton.MouseButton1Click:Connect(function()
+    creditsLabel.Visible = not creditsLabel.Visible
+end)
+
+-- Reopen button logic with nil check
 reopenButton.MouseButton1Click:Connect(function()
-    mainFrame.Position = UDim2.new(0.5, -200, 0.5, 500)
-    mainFrame.Visible = true
-    mainFrame:TweenPosition(UDim2.new(0.5, -200, 0.5, -175), "Out", "Quad", 0.5, true)
-    reopenButton.Visible = false
+    if mainFrame and reopenButton then  -- Ensure both objects are not nil
+        print("Reopening mainFrame...")
+        mainFrame.Position = UDim2.new(0.5, -200, 0.5, 500)
+        mainFrame.Visible = true
+        mainFrame:TweenPosition(UDim2.new(0.5, -200, 0.5, -175), "Out", "Quad", 0.5, true)
+        reopenButton.Visible = false
+    else
+        warn("Error: 'mainFrame' or 'reopenButton' is nil. Cannot proceed with the Reopen action.")
+    end
 end)
 
 -- Loading Screen
